@@ -1,13 +1,9 @@
-To run you should:
+To run this flask app you need to get the models human_dog_net.pt and model_transfer.pt
+and put them in app/neural_networks
 
-1) Make sure you've installed the requiremements (use pip to install requirements.txt, probably in a virtual env)
+You can generate those models in the jupyter notebook
 
-2) Set environment variable as follows:
+Then run the app with
+  flask run
 
-    export FLASK_APP=run.py
-
-(or whatever is the relative path to run.py in this repo.)
-
-3) Finally
-
-    flask run
+I don't know how to deploy a web app and actually I just learned how to use flask!

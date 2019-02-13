@@ -3,7 +3,11 @@
 {% block body %}
 <a href={{url_for("index")}} > <h1>  Dog Breed Classifier  </h1> </a>
 
-<p id="output_text"> {{ output_text }} </p>
+<p id="output_text"> 
+  {% autoescape false %}
+    {{ output_text }}
+  {% endautoescape %}
+</p>
 
 <form method=post enctype=multipart/form-data>
   <input type=file name=file>

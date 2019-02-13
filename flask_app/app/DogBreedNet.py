@@ -3,6 +3,9 @@ from torchvision import transforms
 import torch
 from torch import nn
 import torchvision.models as models
+import numpy as np
+import pickle
+
 
 # Check if cuda is available
 use_cuda = torch.cuda.is_available()
@@ -29,7 +32,7 @@ human_dog_net.classifier = nn.Sequential(nn.Linear(25088,4096),
                                          )
 if use_cuda:
     human_dog_net = human_dog_net.cuda()
-human_dog_net.load_state_dict(torch.load('neural_networks/human_dog_net.pt', map_location='cuda' if use_cuda else 'cpu'))
+human_dog_net.load_state_dict(torch.load('app/neural_networks/human_dog_net.pt', map_location='cuda' if use_cuda else 'cpu'))
 
 # Load up model_transfer
 model_transfer = models.vgg16(pretrained=False)
@@ -38,13 +41,13 @@ model_transfer.classifier[6]=nn.Linear(512,133).to('cuda' if use_cuda else 'cpu'
 model_transfer.classifier[2]=nn.BatchNorm1d(4096).to('cuda' if use_cuda else 'cpu')
 model_transfer.classifier[5]=nn.BatchNorm1d(512 ).to('cuda' if use_cuda else 'cpu')
 model_transfer.classifier.add_module("7",nn.LogSoftmax(dim=1))
-model_transfer.load_state_dict(torch.load('neural_networks/model_transfer.pt'))
+model_transfer.load_state_dict(torch.load('app/neural_networks/model_transfer.pt', map_location='cuda' if use_cuda else 'cpu'))
 
-idx_to_class = pickle.load(open('idx_to_class.p','rb')) # this was generated in jupyter notebook
+idx_to_class = pickle.load(open('app/idx_to_class.p','rb')) # this was generated in jupyter notebook
 
 def dog_breed_net(f):
   str_out=""
-  img = testing_transformation(Image.open(f).convert('RGB')).unsqueeze(dim=0)
+  img = transformation(Image.open(f).convert('RGB')).unsqueeze(dim=0)
   if use_cuda: img=img.cuda()
   human_dog_net.eval()
   model_transfer.eval()
@@ -64,7 +67,7 @@ def dog_breed_net(f):
   classes=classes.cpu()
   class_names = [idx_to_class[idx] for idx in classes.data.numpy().tolist()]
   str_out+=class_names[0]+"."
-  if probabilities[0] < 0.9:
+  if human_dog_presence == 1 and probabilities[0] < 0.9:
     str_out+="<br><br> But I'm not very confident. Maybe it's a "
     str_out+=class_names[1]+"? Or a "+class_names[2]+"?"
   return str_out
