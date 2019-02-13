@@ -10,13 +10,18 @@ h1 {
   text-shadow: 2px 2px 5px #559;
 }
 
+a {
+  text-decoration: none;
+  color: black
+}
+
 footer {
   color: black;
   font-family: Verdana, Sans-Serif;
   font-size: 8pt;
   display: block;
   text-align:center;
-  margin-top: 10em
+  margin-top: 20em
 }
 
 form {
