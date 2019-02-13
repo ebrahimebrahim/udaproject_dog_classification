@@ -1,0 +1,31 @@
+h1 {
+  font-family: Arial, Sans-Serif;
+  background-color: #aab;
+  padding: 0.5em;
+  border: solid;
+  border-color: #77a;
+  border-radius: 25px;
+  max-width: 500px;
+  margin: 0 auto;
+  text-shadow: 2px 2px 5px #559;
+}
+
+footer {
+  color: black;
+  font-family: Verdana, Sans-Serif;
+  font-size: 8pt;
+  display: block;
+  text-align:center;
+  margin-top: 10em
+}
+
+form {
+  max-width: 500px;
+  margin: 1.5em auto;
+}
+
+#output_text {
+  max-width: 500px;
+  margin: 3em auto;
+  font-family: "Lucida Console", Monaco, monospace;
+}

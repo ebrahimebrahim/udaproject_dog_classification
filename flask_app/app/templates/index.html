@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block body %}
+<h1>Dog Breed Classifier</h1>
+
+<p id="output_text"> {{ output_text }} </p>
+
+<form method=post enctype=multipart/form-data>
+  <input type=file name=file>
+  <input type=submit value=Upload>
+</form>
+
+{% endblock %}
